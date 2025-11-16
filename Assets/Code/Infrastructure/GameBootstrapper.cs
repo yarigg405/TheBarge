@@ -1,3 +1,4 @@
+using Assets.Code.Infrastructure.States.GameStates;
 using UnityEngine;
 
 
@@ -10,7 +11,7 @@ namespace Assets.Code.Infrastructure
         private void Awake()
         {
             _game = new Game();
+            _game.StateMachine.Enter<BootstrapState>();
         }
-
     }
 }

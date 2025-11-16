@@ -1,4 +1,5 @@
-﻿using Assets.Code.Services.Input;
+﻿using Assets.Code.Infrastructure.States.StateMachine;
+using Assets.Code.Services.Input;
 
 
 namespace Assets.Code.Infrastructure
@@ -7,9 +8,11 @@ namespace Assets.Code.Infrastructure
     {
         public static IInputService InputService;
 
+        public IStateMachine StateMachine;
+
         public Game()
         {
-            InputService = new InputService();
+          //  _stateMachine = new GameStateMachine();
         }
     }
 }

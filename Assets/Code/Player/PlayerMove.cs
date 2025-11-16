@@ -21,12 +21,6 @@ namespace Assets.Code.Player
             _input = Game.InputService;
         }
 
-        private void Start()
-        {
-            Camera.main.GetComponent<CameraFollow>().Follow(gameObject);
-        }
-
-
         private void Update()
         {
             var inputVector = _input.Axis;
