@@ -1839,6 +1839,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1402293726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1089437125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1089437127}
+  - component: {fileID: 1089437126}
+  m_Layer: 0
+  m_Name: '[SceneLifetimeScope]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1089437126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089437125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e85e68219775b545b419a77dff9603a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Assets.Code.Infrastructure.DI.SceneLifetimeScope
+  parentReference:
+    TypeName: Assets.Code.Infrastructure.DI.GameLifetimeScope
+  autoRun: 1
+  autoInjectGameObjects: []
+  _monoInstallers: []
+--- !u!4 &1089437127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089437125}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 18.36245, y: -23.53467, z: -30.89557}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1203446646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3035,6 +3084,7 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1089437127}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}

@@ -1,7 +1,6 @@
-using Assets.Code.CameraLogic;
-using Assets.Code.Infrastructure;
 using Assets.Code.Services.Input;
 using UnityEngine;
+using VContainer;
 using Yrr.Utils;
 
 
@@ -14,12 +13,8 @@ namespace Assets.Code.Player
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private PlayerView _playerView;
 
-        private IInputService _input;
+        [Inject] private readonly IInputService _input;
 
-        private void Awake()
-        {
-            _input = Game.InputService;
-        }
 
         private void Update()
         {
