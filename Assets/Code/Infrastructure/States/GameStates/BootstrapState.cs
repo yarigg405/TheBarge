@@ -23,7 +23,7 @@ namespace Assets.Code.Infrastructure.States.GameStates
 
         private void EnterLoadLevel()
         {
-            _stateMachine.Enter<LoadSceneState, string>(SceneNames.GameScene);
+            _stateMachine.Enter<LoadProgressState>();
         }
     }
 }

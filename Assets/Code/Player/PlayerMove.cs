@@ -1,12 +1,15 @@
+using Assets.Code.Data;
 using Assets.Code.Services.Input;
+using Assets.Code.Services.PersistentProgress;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using Yrr.Utils;
 
 
 namespace Assets.Code.Player
 {
-    public sealed class PlayerMove : MonoBehaviour
+    public sealed class PlayerMove : MonoBehaviour, ISavedProgress, ISavedProgressReader
     {
         [SerializeField] private float _acceleration;
         [SerializeField] private float _rotationSpeed;
@@ -51,6 +54,22 @@ namespace Assets.Code.Player
         private void HandleView(Vector2 inputVector)
         {
             _playerView.SetMoveValue(inputVector.SqrMagnitude());
+        }
+
+        void ISavedProgress.UpdateProgress(PlayerProgress progress)
+        {
+            progress.WorldData.PositionOnLevel = new(
+                SceneManager.GetActiveScene().name,
+                new(transform.position));
+        }
+
+        void ISavedProgressReader.LoadProgress(PlayerProgress progress)
+        {
+            if (progress.WorldData.PositionOnLevel == null) return;
+            if (!SceneManager.GetActiveScene().name.Equals(progress.WorldData.PositionOnLevel.Level)) return;
+
+            var savedPosition = progress.WorldData.PositionOnLevel.Position;
+            transform.position = new Vector3(savedPosition.X, savedPosition.Y, savedPosition.Z);
         }
     }
 }

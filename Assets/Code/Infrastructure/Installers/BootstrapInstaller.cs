@@ -6,6 +6,8 @@ using Assets.Code.Infrastructure.Loading;
 using Assets.Code.Infrastructure.States.GameStates;
 using Assets.Code.Infrastructure.States.StateMachine;
 using Assets.Code.Services.Input;
+using Assets.Code.Services.PersistentProgress;
+using Assets.Code.Services.SaveLoad;
 using Assets.Code.UI;
 using UnityEngine;
 using VContainer;
@@ -21,22 +23,34 @@ namespace Assets.Code.Infrastructure.Installers
 
         protected override void Install()
         {
-            Builder.RegisterInstance(_loadingScreen);
-
-            Builder.Register<SceneLoader>(Lifetime.Singleton).AsImplementedInterfaces();
-            Builder.Register<GameStateMachine>(Lifetime.Singleton).AsImplementedInterfaces();
-            Builder.Register<AssetProvider>(Lifetime.Singleton).AsImplementedInterfaces();
-            Builder.Register<GameFactory>(Lifetime.Singleton).AsImplementedInterfaces();
-            Builder.Register<InputService>(Lifetime.Singleton).AsImplementedInterfaces();
-
+            RegisterServices();
+            RegisterUI();
             RegisterStates();
 
             Builder.RegisterEntryPoint<BootstrapEntryPoint>();
         }
 
+        private void RegisterServices()
+        {
+            Builder.Register<SceneLoader>(Lifetime.Singleton).AsImplementedInterfaces();
+            Builder.Register<AssetProvider>(Lifetime.Singleton).AsImplementedInterfaces();
+            Builder.Register<GameFactory>(Lifetime.Singleton).AsImplementedInterfaces();
+            Builder.Register<InputService>(Lifetime.Singleton).AsImplementedInterfaces();
+            Builder.Register<SaveLoadService>(Lifetime.Singleton).AsImplementedInterfaces();
+            Builder.Register<PersistentProgressService>(Lifetime.Singleton).AsImplementedInterfaces();
+        }
+
+        private void RegisterUI()
+        {
+            Builder.RegisterInstance(_loadingScreen);
+        }
+
         private void RegisterStates()
         {
+            Builder.Register<GameStateMachine>(Lifetime.Singleton).AsImplementedInterfaces();
+
             Builder.Register<BootstrapState>(Lifetime.Transient);
+            Builder.Register<LoadProgressState>(Lifetime.Transient);
             Builder.Register<LoadSceneState>(Lifetime.Transient);
             Builder.Register<GameLoopState>(Lifetime.Transient);
         }

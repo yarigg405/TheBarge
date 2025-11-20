@@ -1,13 +1,15 @@
-﻿/// Version 0.8.1
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using UnityEngine;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 namespace Yrr.Utils
 {
+    /// Version 0.8.2
     public static class Extensions
     {
         public static void ClearChildren(this Transform transform)
@@ -18,7 +20,7 @@ namespace Yrr.Utils
             {
                 var child = transform.GetChild(i);
                 child.SetParent(null);
-                Object.Destroy(child.gameObject);
+                GameObject.Destroy(child.gameObject);
             }
         }
 
@@ -83,6 +85,7 @@ namespace Yrr.Utils
         }
 
         #endregion
+
 
         #region Angles
         public static float GetAngleDirectionY(Vector3 fromPosition, Vector3 toPosition)
@@ -172,6 +175,52 @@ namespace Yrr.Utils
             var tmp = first.Value;
             first.Value = second.Value;
             second.Value = tmp;
+        }
+
+        public static T FindMin<T, TComp>(this IEnumerable<T> enumerable, Func<T, TComp> selector)
+            where TComp : IComparable<TComp>
+        {
+            return Find(enumerable, selector, true);
+        }
+
+        public static T FindMax<T, TComp>(this IEnumerable<T> enumerable, Func<T, TComp> selector)
+            where TComp : IComparable<TComp>
+        {
+            return Find(enumerable, selector, false);
+        }
+
+        private static T Find<T, TComp>(IEnumerable<T> enumerable, Func<T, TComp> selector, bool selectMin) where TComp : IComparable<TComp>
+        {
+            if (enumerable == null)
+                return default;
+
+            var first = true;
+            T selected = default(T);
+            TComp selectedComp = default(TComp);
+
+            foreach (T current in enumerable)
+            {
+                TComp comp = selector(current);
+                if (first)
+                {
+                    first = false;
+                    selected = current;
+                    selectedComp = comp;
+                    continue;
+                }
+
+                int res = selectMin
+                  ? comp.CompareTo(selectedComp)
+                  : selectedComp.CompareTo(comp);
+
+                if (res < 0)
+                {
+                    selected = current;
+                    selectedComp = comp;
+                }
+            }
+
+            return selected;
         }
         #endregion
 
