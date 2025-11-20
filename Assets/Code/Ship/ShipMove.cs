@@ -1,30 +1,23 @@
 using Assets.Code.Data;
-using Assets.Code.Services.Input;
 using Assets.Code.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VContainer;
 using Yrr.Utils;
 
 
-namespace Assets.Code.Player
+namespace Assets.Code.Ship
 {
-    public sealed class PlayerMove : MonoBehaviour, ISavedProgress, ISavedProgressReader
+    public sealed class ShipMove : MonoBehaviour, ISavedProgress, ISavedProgressReader
     {
         [SerializeField] private float _acceleration;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private PlayerView _playerView;
-
-        [Inject] private readonly IInputService _input;
+        [SerializeField] private ShipView _playerView;
 
 
-        private void Update()
+        public void UpdateMoving(Vector2 inputVector)
         {
-            var inputVector = _input.Axis;
-
             HandleView(inputVector);
-
             if (inputVector.sqrMagnitude > Mathf.Epsilon)
             {
                 HandleRotation(inputVector);

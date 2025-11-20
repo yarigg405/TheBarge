@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-namespace Assets.Code.Player
+namespace Assets.Code.Ship
 {
-    public sealed class PlayerView : MonoBehaviour
+    public sealed class ShipView : MonoBehaviour
     {
         [SerializeField] private Transform[] _engineViews;
 
