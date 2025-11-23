@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace Assets.Code.UI
+namespace Assets.Code.UI.Elements
 {
     public class LoadingScreen : MonoBehaviour
     {

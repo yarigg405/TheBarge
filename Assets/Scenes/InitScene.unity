@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::BootstrapInstaller
   _loadingScreen: {fileID: 271509545}
+  _windowsStaticData: {fileID: 11400000, guid: 2b41a7700f90bbd4398c4450160d08b3, type: 2}
 --- !u!1 &942320100
 GameObject:
   m_ObjectHideFlags: 0

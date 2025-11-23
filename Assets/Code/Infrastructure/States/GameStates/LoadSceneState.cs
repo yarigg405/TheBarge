@@ -4,7 +4,8 @@ using Assets.Code.Infrastructure.Loading;
 using Assets.Code.Infrastructure.States.StateMachine;
 using Assets.Code.Infrastructure.States.StatesInfrastructure;
 using Assets.Code.Services.PersistentProgress;
-using Assets.Code.UI;
+using Assets.Code.UI.Elements;
+using Assets.Code.UI.Services;
 using UnityEngine;
 
 
@@ -17,18 +18,20 @@ namespace Assets.Code.Infrastructure.States.GameStates
         private readonly LoadingScreen _loadingScreen;
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
+        private readonly UiFactory _uiFactory;
 
         private const string _playerSpawnPointTag = "PlayerSpawnPoint";
 
         public LoadSceneState(IStateMachine stateMachine, IScenesLoader scenesLoader,
             LoadingScreen loadingScreen, IGameFactory gameFactory,
-            IPersistentProgressService progressService)
+            IPersistentProgressService progressService, UiFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _scenesLoader = scenesLoader;
             _loadingScreen = loadingScreen;
             _gameFactory = gameFactory;
             _progressService = progressService;
+            _uiFactory = uiFactory;
         }
 
         public override void Enter(string sceneName)
@@ -40,7 +43,9 @@ namespace Assets.Code.Infrastructure.States.GameStates
 
         public override void Exit()
         {
+            _uiFactory.CreateUiRoot();
             _loadingScreen.Hide();
+
         }
 
         private void OnLoaded()

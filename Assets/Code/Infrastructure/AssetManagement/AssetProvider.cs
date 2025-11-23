@@ -17,7 +17,7 @@ namespace Assets.Code.Infrastructure.AssetManagement
         GameObject IAssetProvider.Instantiate(string path, Vector3 at)
         {
             var prefab = Resources.Load<GameObject>(path);
-            var instance = GameObject.Instantiate(prefab, at, Quaternion.identity);
+            var instance = _objectResolver.Instantiate(prefab, at, Quaternion.identity);
             _objectResolver.InjectGameObject(instance);
 
             return instance;
